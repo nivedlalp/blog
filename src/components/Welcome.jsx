@@ -191,11 +191,10 @@ export default function Welcome() {
                   setEditingMain(false);
                   setEditingFooter(false);
                 }}
-                className={`group focus:outline-none flex items-center transition-colors ${
-                  activeTab === tab.key
-                    ? 'text-yellow-500'
-                    : 'text-gray-700 hover:text-yellow-400'
-                }`}
+                className={`group focus:outline-none flex items-center transition-colors ${activeTab === tab.key
+                  ? 'text-yellow-500'
+                  : 'text-gray-700 hover:text-yellow-400'
+                  }`}
               >
                 <span className="hidden sm:block opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                   {tab.icon}
@@ -362,11 +361,15 @@ export default function Welcome() {
               <div>
                 <div className="whitespace-pre-wrap flex flex-col items-center xl:flex-row gap-4 xl:gap-8 xl:items-center">
                   {humanImage && (
-                    <img
-                      src={`/uploads/${humanImage}`}
-                      alt="Human visual"
-                      className="w-full xl:w-1/2 h-auto rounded border border-yellow-300 shadow"
-                    />
+                    <div className="relative w-full h-96 overflow-hidden border border-yellow-300 rounded shadow">
+                      <div className="absolute w-full animate-scroll-vertical hover:pause">
+                        <div>
+                          <img src={`/uploads/${humanImage}`} alt="Visual" className="w-full block" />
+                          <img src={`/uploads/${humanImage}`} alt="Visual" className="w-full block" />
+                        </div>
+                      </div>
+                    </div>
+
                   )}
                   <div
                     className="prose max-w-none text-justify"
@@ -481,19 +484,21 @@ export default function Welcome() {
           <p className="text-gray-400 mb-2 sm:mb-0 ">
             © {year} All rights reserved | <a href="admin">admin</a>
           </p>
-          <div className="flex gap-8 cursor-pointer" role="tablist">
+          <div className="flex gap-8" role="tablist">
             {tabs.map((tab) => (
               <button
                 key={tab.key}
                 role="tab"
                 tabIndex={activeTab === tab.key ? 0 : -1}
                 aria-selected={activeTab === tab.key}
-                onClick={() => setActiveTab(tab.key)}
-                className={`focus:outline-none ${
-                  activeTab === tab.key
-                    ? 'text-yellow-500'
-                    : 'text-gray-700 hover:text-yellow-400'
-                }`}
+                onClick={() => {
+                  setActiveTab(tab.key);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className={`focus:outline-none cursor-pointer ${activeTab === tab.key
+                  ? 'text-yellow-500'
+                  : 'text-gray-700 hover:text-yellow-400'
+                  }`}
               >
                 {tab.label}
               </button>

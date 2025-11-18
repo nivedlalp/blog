@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import DetailsMarkdown from './DetailsMarkdown.client.jsx';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export default function Details({ id }) {
   const [istTime, setIstTime] = useState('');
@@ -84,11 +87,10 @@ export default function Details({ id }) {
                   setIsEditing(true);
                 }
               }}
-              className={`ml-4 px-3 py-1 text-sm rounded transition whitespace-nowrap ${
-                isEditing
-                  ? 'bg-red-400 hover:bg-red-500'
-                  : 'bg-yellow-400 hover:bg-yellow-500'
-              }`}
+              className={`ml-4 px-3 py-1 text-sm rounded transition whitespace-nowrap ${isEditing
+                ? 'bg-red-400 hover:bg-red-500'
+                : 'bg-yellow-400 hover:bg-yellow-500'
+                }`}
             >
               {isEditing ? '❌ Cancel' : '✏️ Edit'}
             </button>
@@ -352,24 +354,41 @@ export default function Details({ id }) {
                 </div>
               )}
             </div>
-
             <p className="mt-4 mb-2 font-thin text-sm">Description</p>
             {isEditing ? (
-              <textarea
-                value={data.description}
-                onChange={(e) =>
-                  setData((prev) => ({
-                    ...prev,
-                    description: e.target.value,
-                  }))
+              <DetailsMarkdown
+                value={data.description || ''}
+                onChange={(val) =>
+                  setData((prev) => ({ ...prev, description: val }))
                 }
-                className="w-full border rounded p-2 text-base sm:text-xl"
-                rows={6}
               />
             ) : (
-              <p className="font-thin sm:text-2xl text-justify sm:text-left">
-                {data.description}
-              </p>
+              <div className="prose prose-slate sm:prose-xl max-w-none">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    a: ({ node, ...props }) => (
+                      <a className="text-yellow-600 hover:underline" {...props} />
+                    ),
+                    h1: ({ node, ...props }) => <h1 className="text-4xl font-bold my-4" {...props} />,
+                    h2: ({ node, ...props }) => <h2 className="text-3xl font-semibold my-3" {...props} />,
+                    h3: ({ node, ...props }) => <h3 className="text-2xl font-semibold my-2" {...props} />,
+                    pre: ({ node, ...props }) => (
+                      <pre className="bg-gray-900 text-green-300 p-4 rounded-lg overflow-x-auto" {...props} />
+                    ),
+                    code: ({ node, inline, className, children, ...props }) => (
+                      <code
+                        className={`font-mono ${inline ? 'bg-gray-200 px-1 rounded' : ''}`}
+                        {...props}
+                      >
+                        {children}
+                      </code>
+                    ),
+                  }}
+                >
+                  {data.description || ''}
+                </ReactMarkdown>
+              </div>
             )}
           </>
         )}

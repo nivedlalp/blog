@@ -1,1 +1,21 @@
 @import 'tailwindcss';
+
+@layer utilities {
+    @keyframes scroll-vertical {
+        0% {
+            transform: translateY(0);
+        }
+
+        100% {
+            transform: translateY(-50%);
+        }
+    }
+
+    .animate-scroll-vertical {
+        animation: scroll-vertical 10zs linear infinite;
+    }
+
+    .hover\:pause:hover {
+        animation-play-state: paused;
+    }
+}
