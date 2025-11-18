@@ -12,7 +12,7 @@
     }
 
     .animate-scroll-vertical {
-        animation: scroll-vertical 10zs linear infinite;
+        animation: scroll-vertical 10s linear infinite;
     }
 
     .hover\:pause:hover {
