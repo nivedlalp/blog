@@ -177,7 +177,7 @@ export default function Welcome() {
             </div>
           </div>
           <div
-            className="flex gap-6 lg:gap-4 lg:gap-8 cursor-pointer justify-center lg:justify-between mt-4 lg:mt-0 border rounded border-yellow-400 p-2 lg:border-none lg:p-0"
+            className="flex gap-4 lg:gap-8 cursor-pointer justify-between mt-4 lg:mt-0 border rounded border-yellow-400 py-2 px-4 lg:border-none lg:p-0"
             role="tablist"
           >
             {tabs.map((tab) => (
@@ -359,20 +359,27 @@ export default function Welcome() {
               </div>
             ) : (
               <div>
-                <div className="whitespace-pre-wrap flex flex-col items-center xl:flex-row gap-4 xl:gap-8 xl:items-center">
+                <div className="whitespace-pre-wrap flex flex-col items-stretch xl:flex-row gap-4 xl:gap-8 xl:items-stretch">
                   {humanImage && (
-                    <div className="relative w-full h-96 overflow-hidden border border-yellow-300 rounded shadow">
+                    <div className="relative w-full xl:w-auto flex-1 overflow-hidden border border-yellow-300 rounded shadow h-64 xl:h-auto min-h-[16rem]">
                       <div className="absolute w-full animate-scroll-vertical hover:pause">
                         <div>
-                          <img src={`/uploads/${humanImage}`} alt="Visual" className="w-full block" />
-                          <img src={`/uploads/${humanImage}`} alt="Visual" className="w-full block" />
+                          <img
+                            src={`/uploads/${humanImage}`}
+                            alt="Visual"
+                            className="w-full h-full object-cover block"
+                          />
+                          <img
+                            src={`/uploads/${humanImage}`}
+                            alt="Visual"
+                            className="w-full h-full object-cover block"
+                          />
                         </div>
                       </div>
                     </div>
-
                   )}
                   <div
-                    className="prose max-w-none text-justify"
+                    className="prose max-w-none text-justify flex-1"
                     dangerouslySetInnerHTML={{ __html: humanText }}
                   />
                 </div>
@@ -484,7 +491,7 @@ export default function Welcome() {
           <p className="text-gray-400 mb-2 sm:mb-0 ">
             © {year} All rights reserved | <a href="admin">admin</a>
           </p>
-          <div className="flex gap-8" role="tablist">
+          <div className="flex gap-4 justify-between" role="tablist">
             {tabs.map((tab) => (
               <button
                 key={tab.key}

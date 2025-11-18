@@ -295,7 +295,7 @@ export default function Details({ id }) {
               <img
                 src={data.image}
                 alt={data.title}
-                className="object-contain max-w-full h-auto rounded w-fit"
+                className="object-contain max-w-full h-auto rounded w-1/2"
               />
               {isEditing && (
                 <div className="mt-6 space-y-2 flex flex-col items-center">
